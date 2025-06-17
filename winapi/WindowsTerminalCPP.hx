@@ -1,12 +1,5 @@
 package winapi;
 
-/**
- * This file is in charge of providing some Windows terminal functions 
- * 
- * Author: Slushi
- */
-
-#if windows
 @:cppFileCode('
 #include <Windows.h>
 #include <windowsx.h>
@@ -214,6 +207,3 @@ class WindowsTerminalCPP
 	{
 	}
 }
-#else
-#error "SL-Windows-API supports only Windows platform"
-#end

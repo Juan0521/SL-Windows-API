@@ -2,18 +2,11 @@ package winapi;
 
 import sys.io.Process;
 
-/**
- * This file only contains the functions that come from WindowsCPP.hx and WindowsTerminalCPP.hx, it should be 
- * the file to use when you require a Windows C++ function.
- * 
- * Author: Slushi
- */
-#if windows
 enum abstract MessageBoxIcon(Int) {
-	var MSG_ERROR = 0x00000010;
-	var MSG_QUESTION = 0x00000020;
-	var MSG_WARNING = 0x00000030;
-	var MSG_INFORMATION = 0x00000040;
+	var ERROR = 0x00000010;
+	var QUESTION = 0x00000020;
+	var WARNING = 0x00000030;
+	var INFORMATION = 0x00000040;
 }
 
 class WindowsAPI {
@@ -21,11 +14,7 @@ class WindowsAPI {
 		return WindowsCPP.obtainRAM();
 	}
 
-	public static function screenCapture(path:String) {
-		WindowsCPP.windowsScreenShot(path);
-	}
-
-	public static function showMessageBox(message:String, caption:String, icon:MessageBoxIcon = MSG_WARNING) {
+	public static function showMessageBox(message:String, caption:String, icon:MessageBoxIcon = WARNING) {
 		WindowsCPP.showMessageBox(caption, message, icon);
 	}
 
@@ -188,10 +177,9 @@ class WindowsAPI {
 	}
 
 	/////////////////////////////////
-	@:noPrivateAccess {
-		private static var _windowsWallpaperPath:String = null;
-		private static var changedWallpaper:Bool = false;
-	}
+	@:noPrivateAccess private static var _windowsWallpaperPath:String = null;
+	@:noPrivateAccess private static var changedWallpaper:Bool = false;
+	
 	public static function changeWindowsWallpaper(path:String) {
 		var allPath:String = Sys.getCwd() + path;
 		allPath = allPath.split("\\").join("/");
@@ -203,8 +191,6 @@ class WindowsAPI {
 	public static function screenCapture(path:String) {
 		var allPath:String = Sys.getCwd() + path;
 		allPath = allPath.split("\\").join("/");
-		screenCapture(allPath);
-		trace("Screenshot saved to: " + allPath);
 	}
 
 	public static function saveCurrentWindowsWallpaper() {
@@ -259,11 +245,4 @@ class WindowsAPI {
 			changedWallpaper = false;
 		}
 	}
-
-	public static function setWindowBorderColor(rgb:Array<Int>) {
-		setWindowBorderColor(rgb[0], rgb[1], rgb[2]);
-	}
 }
-#else
-#error "SL-Windows-API supports only Windows platform"
-#end

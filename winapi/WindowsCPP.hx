@@ -1,12 +1,5 @@
 package winapi;
 
-/**
- * More than 600 lines of almost pure C++ code :3 
- * 
- * Author: Slushi
- */
-
-#if windows
 @:buildXml('
 <compilerflag value="/DelayLoad:ComCtl32.dll"/>
 
@@ -167,7 +160,7 @@ class WindowsCPP
 	@:functionCode('
 		MessageBox(GetActiveWindow(), message, caption, icon | MB_SETFOREGROUND);
 	')
-	public static function showMessageBox(caption:String, message:String, icon:WindowsAPI.MessageBoxIcon = MSG_WARNING)
+	public static function showMessageBox(caption:String, message:String, icon:WindowsAPI.MessageBoxIcon = WARNING)
 	{
 	}
 
@@ -557,6 +550,3 @@ class WindowsCPP
 	{
 	}
 }
-#else
-#error "SL-Windows-API supports only Windows platform"
-#end
