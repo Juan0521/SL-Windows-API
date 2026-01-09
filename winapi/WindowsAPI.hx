@@ -9,6 +9,13 @@ enum abstract MessageBoxIcon(Int) {
 	var INFORMATION = 0x00000040;
 }
 
+enum abstract WindowRound(Int) {
+	var DWMWCP_DEFAULT = 0;
+	var DWMWCP_DONOTROUND = 1;
+	var DWMWCP_ROUND = 2;
+	var DWMWCP_ROUNDSMALL= 3;
+}
+
 class WindowsAPI {
 	public static function obtainRAM():Int {
 		return WindowsCPP.obtainRAM();
@@ -50,21 +57,21 @@ class WindowsAPI {
 		WindowsCPP.setWindowBorderColor(r, g, b);
 	}
 
-	public static function setWindowsthickness(th:Int) {
-		WindowsCPP.setWindowsthickness(th);
+	public static function setWindowthickness(th:Int) {
+		WindowsCPP.setWindowthickness(th);
 	}
 
-	public static function setTextColor(r, g, b) {
-		WindowsCPP.setTextColor(r, g, b);
+	public static function setWindowTextColor(r:Int, g:Int, b:Int) {
+		WindowsCPP.setWindowTextColor(r, g, b);
 	}
 
-	public static function setWindowsRound(mode)
+	public static function setWindowRound(pmode:WindowRound)
 	{
-		WindowsCPP.setWindowsRound(mode);
+		WindowsCPP.setWindowRound(pmode);
 	}
-	public static function windowsDarkMode(dmode:Bool)
+	public static function windowDarkMode(dmode:Bool)
 	{
-		WindowsCPP.windowsDarkMode(dmode);
+		WindowsCPP.windowDarkMode(dmode);
 	}
 
 	public static function hideTaskbar(hide:Bool) {

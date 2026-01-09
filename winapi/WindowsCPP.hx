@@ -231,61 +231,48 @@ class WindowsCPP
 	}
 
 	@:functionCode('
-        HWND window = GetActiveWindow();
+        HWND window = GET_MAIN_WINDOW();
 
         UINT thickness = th;
 
         DwmSetWindowAttribute(window, DWMWA_VISIBLE_FRAME_BORDER_THICKNESS, &thickness, sizeof(thickness));
     ') 
-    public static function setWindowsthickness(th:Int = 0)
+    public static function setWindowthickness(th:Int = 0)
     {
     }
 	
     @:functionCode('
-        HWND window = GetActiveWindow();
+        HWND window = GET_MAIN_WINDOW();
 
         auto color2 = RGB(r, g, b);
         DwmSetWindowAttribute(window, 36, &color2, sizeof(COLORREF));
+
+		UpdateWindow(window);
     ')
-    public static function setTextColor(r, g, b):Void
+    public static function setWindowTextColor(r:Int, g:Int, b:Int):Void
     {
     }
 
 	@:functionCode('
-		HWND window = GetActiveWindow();
-		DWM_WINDOW_CORNER_PREFERENCE preference = DWMWCP_DEFAULT;
-
-		if (mode == HX_CSTRING("DEFAULT"))
-		{
-			preference = DWMWCP_DEFAULT;
-		}
-		else if (mode == HX_CSTRING("DONOTROUND"))
-		{
-			preference = DWMWCP_DONOTROUND;
-		}
-		else if (mode == HX_CSTRING("ROUND"))
-		{
-			preference = DWMWCP_ROUND;
-		}
-		else if (mode == HX_CSTRING("ROUNDSMALL"))
-			preference = DWMWCP_ROUNDSMALL;
-		else
-			preference = DWMWCP_DEFAULT;
+		HWND window = GET_MAIN_WINDOW();
+		DWM_WINDOW_CORNER_PREFERENCE preference = static_cast<DWM_WINDOW_CORNER_PREFERENCE>(pmode);;
 
 		DwmSetWindowAttribute(window, DWMWA_WINDOW_CORNER_PREFERENCE, &preference, sizeof(preference));
 	')
-	public static function setWindowsRound(mode)
+	public static function setWindowRound(pmode:WindowsAPI.WindowRound)
     {
     }
 
 	@:functionCode('
-		HWND window = GetActiveWindow();
+		HWND window = GET_MAIN_WINDOW();
 
 		int damode = dmode ? 1 : 0;
 
 		DwmSetWindowAttribute(window, DWMWA_USE_IMMERSIVE_DARK_MODE, &damode, sizeof(damode));
+
+		UpdateWindow(window);
 	')
-	public static function windowsDarkMode(dmode):Void
+	public static function windowDarkMode(dmode):Void
     {
     }
 	
