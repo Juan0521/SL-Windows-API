@@ -50,6 +50,23 @@ class WindowsAPI {
 		WindowsCPP.setWindowBorderColor(r, g, b);
 	}
 
+	public static function setWindowsthickness(th:Int) {
+		WindowsCPP.setWindowsthickness(th);
+	}
+
+	public static function setTextColor(r, g, b) {
+		WindowsCPP.setTextColor(r, g, b);
+	}
+
+	public static function setWindowsRound(mode)
+	{
+		WindowsCPP.setWindowsRound(mode);
+	}
+	public static function windowsDarkMode(dmode:Bool)
+	{
+		WindowsCPP.windowsDarkMode(dmode);
+	}
+
 	public static function hideTaskbar(hide:Bool) {
 		WindowsCPP.hideTaskbar(hide);
 	}
